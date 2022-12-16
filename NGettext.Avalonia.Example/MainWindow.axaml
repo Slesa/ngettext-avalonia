@@ -1,0 +1,99 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:enumTranslation="clr-namespace:NGettext.Avalonia.EnumTranslation;assembly=NGettext.Avalonia"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        xmlns:avalonia="clr-namespace:NGettext.Avalonia;assembly=NGettext.Avalonia"
+        xmlns:example="clr-namespace:NGettext.Avalonia.Example"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="NGettext.Avalonia.Example.MainWindow"
+        SizeToContent="WidthAndHeight"
+        Title="{Binding Header}">
+        
+    <Window.Resources>
+        <!-- The following ensures all enum values are translated when displayed -->
+        <enumTranslation:LocalizeEnumConverter x:Key="LocalizeEnumConverter" />
+    </Window.Resources>
+    
+    <Window.DataTemplates>
+        <DataTemplate DataType="{x:Type system:Enum}">
+            <TextBlock Text="{Binding Converter={StaticResource LocalizeEnumConverter}}" />
+        </DataTemplate>
+    </Window.DataTemplates>
+    
+    <Window.Styles>
+        <Style Selector="Button.Example">
+            <Setter Property="Margin" Value="4,0" />
+            <Setter Property="MinWidth" Value="80" />
+        </Style>
+    </Window.Styles>
+    
+    <Window.DataContext>
+        <example:MainWindowModel />
+    </Window.DataContext>
+    <Interaction.Behaviors>
+        <avalonia:TrackCurrentCultureBehavior />
+    </Interaction.Behaviors>
+
+    <StackPanel Orientation="Vertical">
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="40">
+            <Button CommandParameter="en-US" Command="{StaticResource ChangeCultureCommand}"
+                    Content="{avalonia:Gettext English}" Classes="Example" />
+            <Button CommandParameter="de-DE" Command="{StaticResource ChangeCultureCommand}"
+                    Content="{avalonia:Gettext German}" Classes="Example" />
+            <Button CommandParameter="da-DK" Command="{StaticResource ChangeCultureCommand}"
+                    Content="{avalonia:Gettext Danish}" Classes="Example" />
+        </StackPanel>
+        
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <TextBlock Text="{avalonia:Gettext Localized number format example:}" Width="280" TextAlignment="Right"
+                       Margin="0,0,20,0" />
+            <TextBlock Text="{Binding SomeNumber, StringFormat={}{0:n2}, Mode=OneWay}" Width="220" />
+        </StackPanel>
+        
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <TextBlock Text="{avalonia:Gettext Localized date time format example:}" Width="310" TextAlignment="Right"
+                       Margin="0,0,20,0" />
+            <TextBlock Text="{Binding CurrentTime, StringFormat={}{0:F}, Mode=OneWay}" Width="250" />
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <TextBlock Text="{avalonia:Gettext Localized enum combo example:}" Width="280" TextAlignment="Right"
+                       Margin="0,0,20,0" />
+            <ComboBox Items="{Binding EnumValues, Mode=OneWay}" Width="140" Margin="0,0,80,0" />
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <TextBlock Text="{avalonia:Gettext Deferred localization example:}" Width="280" TextAlignment="Right"
+                       Margin="0,0,20,0" />
+            <TextBlock Text="{Binding SomeDeferredLocalization, Mode=OneWay}" Width="220" />
+        </StackPanel>
+
+        <TextBlock Text="{avalonia:Gettext Varying case example:}" HorizontalAlignment="Center" />
+        <TextBlock Text="{avalonia:Gettext Varying cAsE ExamPle:}"  HorizontalAlignment="Center" />
+        <TextBlock Text="{Binding PluralGettext, Mode=OneWay}" HorizontalAlignment="Center" />
+        <TextBlock Text="{Binding PluralGettextParams, Mode=OneWay}" HorizontalAlignment="Center" />
+        <!-- Note that escaped single-quotes are not supported by the VS designer at the time of writing -->
+        <!--<TextBlock Text="{avalonia:Gettext 'Enclosing single-quotes (\') are optional'}"  HorizontalAlignment="Center" />-->
+        <TextBlock Text="{avalonia:Gettext 'Enclosing single-quotes (apostrophes) are optional.'}"  HorizontalAlignment="Center" />
+        <TextBlock Text="{avalonia:Gettext Unenclosed escaped single-quotes (\') are supported.}"  HorizontalAlignment="Center" />
+        <TextBlock Text="{avalonia:Gettext Unicode™ in msgIds is supported}"  HorizontalAlignment="Center" />
+        <TextBlock Text="{avalonia:Gettext Example|GNOME glib syntax context example}" HorizontalAlignment="Center" />
+        <TextBlock Text="{avalonia:Gettext Text with punctuation: 1\, 2\, 3}" HorizontalAlignment="Center" />
+        <TextBlock Text="{Binding Path=Counter, Converter={avalonia:GettextFormatConverter Binding string format support: {0:n0}}}" HorizontalAlignment="Center" />
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="40">
+            <Button Content="{avalonia:Gettext Run TrackCurrentCultureBehavior memory leak test}" 
+                    Command="{Binding OpenMemoryLeakTestWindow}" Margin="15,4,15,4" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{avalonia:Gettext Memory leak test progress:}" Margin="4" Width="170" TextAlignment="Right" />
+                <ProgressBar Width="200" Height="10" Value="{Binding MemoryLeakTestProgress}"
+                             Maximum="5"
+                             Margin="4" />
+            </StackPanel>
+        </StackPanel>
+        
+    </StackPanel>
+    
+</Window>

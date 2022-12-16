@@ -1,0 +1,12 @@
+packages/
+.vs/
+*~
+**/bin/
+**/obj/
+*.v3.*
+_NCrunch*
+*.csproj.user
+*.pot
+*.nupkg
+*.user
+.idea/
