@@ -5,7 +5,7 @@ This is a port of the great work of Robert J. Engdahl's ngettext-wpf.
 
 See the change history <a href="CHANGELOG.md">here</a>, including whats new in the latest release and what will be included in the upcomming release.
 
-[![Build status](https://ci.appveyor.com/api/projects/status/s344j6n3gpvjxjof?svg=true)](https://ci.appveyor.com/project/robert-j-engdahl/ngettext-wpf)
+[![Build status](https://ci.appveyor.com/api/github/webhook?id=pav95lu9994kplbf?svg=true)](https://ci.appveyor.com/project/Slesa/ngettext-avalonia)
 
 ![LGPL](https://www.gnu.org/graphics/lgplv3-88x31.png)
 
