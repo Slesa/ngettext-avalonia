@@ -10,3 +10,4 @@ _NCrunch*
 *.nupkg
 *.user
 .idea/
+.fake/
