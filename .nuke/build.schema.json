@@ -65,9 +65,9 @@
             "type": "string",
             "enum": [
               "Clean",
-              "CompileApps",
-              "CompileTests",
+              "Compile",
               "Default",
+              "Pack",
               "Restore",
               "RunTests"
             ]
@@ -80,9 +80,9 @@
             "type": "string",
             "enum": [
               "Clean",
-              "CompileApps",
-              "CompileTests",
+              "Compile",
               "Default",
+              "Pack",
               "Restore",
               "RunTests"
             ]
