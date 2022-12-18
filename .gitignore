@@ -11,3 +11,4 @@ _NCrunch*
 *.user
 .idea/
 .fake/
+.nuke/temp
