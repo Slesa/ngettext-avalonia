@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using Nuke.Common;
+using Nuke.Common.ChangeLog;
 using Nuke.Common.CI;
+using Nuke.Common.CI.AppVeyor;
 using Nuke.Common.Execution;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using Nuke.Common.IO;
@@ -13,6 +15,7 @@ using static Nuke.Common.EnvironmentInfo;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 
+[AppVeyor(AppVeyorImage.VisualStudio2022, InvokedTargets = new[] { nameof(Publish) })]
 class Build : NukeBuild
 {
     /// Support plugins are available for:
@@ -20,7 +23,10 @@ class Build : NukeBuild
     ///   - JetBrains Rider            https://nuke.build/rider
     ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
     ///   - Microsoft VSCode           https://nuke.build/vscode
-
+    [Parameter] string NugetApiUrl = "https://api.nuget.org/v3/index.json"; //default
+    [Parameter] string NugetApiKey;
+    [Parameter] string Version;
+    
     public static int Main () => Execute<Build>(x => x.Default);
 
     AbsolutePath PathSrc => RootDirectory / "src";
@@ -42,6 +48,24 @@ class Build : NukeBuild
             EnsureCleanDirectory(PathBin);
         });
 
+    Target ReadEnvironment => _ => _
+        .Executes(() =>
+        {
+            var relnotes = ChangelogTasks.ReadReleaseNotes(RootDirectory / "ReleaseNotes.md");
+            var relnote = relnotes.First();
+            var version = relnote.Version;
+            var notes = relnote.Notes;
+            Console.WriteLine("Release Notes:");
+            foreach(var note in notes)
+                Console.WriteLine(note);
+            var buildnum = Environment.GetEnvironmentVariable("APPVEYOR_BUILD_NUMBER") ?? "0";
+            Version = $"{version}.{buildnum}";
+            Console.WriteLine($"Got version {Version}");
+            
+            // if(string.IsNullOrEmpty(NugetApiKey))
+            NugetApiKey = Environment.GetEnvironmentVariable("NUGET_APIKEY");
+        });
+
     Target Restore => _ => _
         .DependsOn(Clean)
         .Executes(() =>
@@ -60,11 +84,13 @@ class Build : NukeBuild
                 Console.WriteLine($"Compiling {prj}");
                 DotNetBuild(s => s
                     .SetProjectFile(prj)
+                    .EnableNoRestore()
                     .SetOutputDirectory(PathBuild));
             });
                 //.SetFileVersion(GitVersion.GetNormalizedFileVersion())
                 //.SetAssemblyVersion(GitVersion.AssemblySemVer));
         });
+    
     Target RunTests => _ => _
         .DependsOn(Restore)
         .Executes(() =>
@@ -74,6 +100,7 @@ class Build : NukeBuild
                 DotNetTest(_ => _
                     .SetProjectFile(prj)
                     .SetResultsDirectory(PathReports)
+                    .EnableNoRestore()
                     .SetOutput(PathTest)
                     .SetConfiguration(Configuration)));
                     //.EnableNoBuild()
@@ -85,26 +112,57 @@ class Build : NukeBuild
     Target Pack => _ => _
 //        .DependsOn(Compile)
 //        .DependsOn(RunTests)
+        .DependsOn(ReadEnvironment)
+        .Produces(PathDist / "*.nupkg")
         .Executes(() =>
         {
+            if (string.IsNullOrEmpty(Version))
+            {
+                Console.WriteLine("No version given, cannot create NuGet package");
+                return;
+            }
             DotNetPack(s => s
                 .SetProject(PathSrc / "NGettext.Avalonia" / "NGettext.Avalonia.csproj")
+                .EnableNoRestore()
                 .SetConfiguration(Configuration)
+                //.SetPackageProjectUrl("https://github.com/Slesa/ngettext-avalonia")
 //                .EnableNoBuild()
-//                .EnableNoRestore()
-  //              .SetPackageId("NGettext.Avalonia")
-  //              .SetVersion("0.0.1")
-  //              .SetAuthors("Robert Jørgensgaard Engdahl")
-  //              .SetDescription("Proper internationalization support for Avalonia (via NGettext).  In particular a GetTextMarkupExtension is included, which is what everyone uses anyway.")
-  //              .SetCopyright("Copyright 2017, 2018, 2019 Accuratech ApS")
-  //              .SetPackageTags("gettext avalonia ngettext gettextmarkupextension xgettext-xaml")
+                .SetPackageId("NGettext.Avalonia")
+                .SetVersion(Version)
+                //.ClearAuthors()
+                //.SetAuthors("Robert Jørgensgaard Engdahl")
+                //.SetAuthors(new []{"Robert Jørgensgaard Engdahl, J. Preiss"})
+                // .SetDescription("Proper internationalization support for Avalonia (via NGettext).  In particular a GetTextMarkupExtension is included, which is what everyone uses anyway.")
+                // .SetCopyright("Copyright 2017, 2018, 2019 Accuratech ApS")
+                .SetPackageTags(new []{"gettext", "avalonia", "ngettext", "gettextmarkupextension", "xgettext-xaml"})
   //              .SetNoDependencies(true)
                 .SetOutputDirectory(PathDist));
-
+        });
+    
+    Target Publish => _ => _
+        .DependsOn(Pack)
+        .Requires(() => NugetApiUrl)
+        .Executes(() =>
+        {
+            if (string.IsNullOrEmpty(NugetApiKey))
+            {
+                Console.WriteLine("No NuGet API key given");
+                return;
+            }
+            GlobFiles(PathDist, "*.nupkg")
+                .NotEmpty()
+                .Where(x => !x.EndsWith("symbols.nupkg"))
+                .ForEach(pkg =>
+                {
+                    DotNetNuGetPush(s => s
+                            .SetTargetPath(pkg)
+                            .SetSource(NugetApiUrl)
+                            .SetApiKey(NugetApiKey));
+                });
         });
     
     Target Default => _ => _
-        .DependsOn(Pack)
+        .DependsOn(Publish)
         .Executes(() =>
         {
         });

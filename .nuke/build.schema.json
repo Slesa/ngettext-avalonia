@@ -39,6 +39,12 @@
           "type": "boolean",
           "description": "Disables displaying the NUKE logo"
         },
+        "NugetApiKey": {
+          "type": "string"
+        },
+        "NugetApiUrl": {
+          "type": "string"
+        },
         "Partition": {
           "type": "string",
           "description": "Partition to use on CI"
@@ -68,6 +74,9 @@
               "Compile",
               "Default",
               "Pack",
+              "Publish",
+              "ReadEnvironment",
+              "ReleaseNotes",
               "Restore",
               "RunTests"
             ]
@@ -83,6 +92,9 @@
               "Compile",
               "Default",
               "Pack",
+              "Publish",
+              "ReadEnvironment",
+              "ReleaseNotes",
               "Restore",
               "RunTests"
             ]
@@ -97,6 +109,9 @@
             "Quiet",
             "Verbose"
           ]
+        },
+        "Version": {
+          "type": "string"
         }
       }
     }
