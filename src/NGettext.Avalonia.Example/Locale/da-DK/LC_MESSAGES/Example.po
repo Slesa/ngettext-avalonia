@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-18 08:39+0100\n"
+"POT-Creation-Date: 2022-12-19 12:34+0100\n"
 "PO-Revision-Date: 2019-03-18 08:40+0100\n"
 "Last-Translator: Robert Jørgensgaard Engdahl <rje@accuratech.dk>\n"
 "Language-Team: \n"
@@ -16,11 +16,11 @@ msgstr ""
 "X-Poedit-KeywordsList: Localizer.Noop\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: MainWindow.xaml:71
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:85
 msgid "Binding string format support: {0:n0}"
 msgstr "Binding-string-format-understøttelse: {0:n0}"
 
-#: MemoryLeakTestWindow.xaml:15
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MemoryLeakTestWindow.axaml:16
 msgid ""
 "Close this window to test that the attached behavior releases its event "
 "listeners from the culture tracker."
@@ -28,112 +28,112 @@ msgstr ""
 "Luk dette vindue for at teste at den attachede behavior frigiver sine event-"
 "listeners fra culture-trackeren."
 
-#: MainWindow.xaml:38
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:47
 msgid "Danish"
 msgstr "Dansk"
 
-#: C:\Git\ngettext-avalonia\NGettext.Avalonia.Example\MainWindow.xaml.cs:17
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindowModel.cs:16
 msgid "Deferred localization"
 msgstr "Udsat oversættelse"
 
-#: MainWindow.xaml:56
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:69
 msgid "Deferred localization example:"
 msgstr "Eksempel på udsat oversættelse:"
 
-#: MainWindow.xaml:65
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:79
 msgid "Enclosing single-quotes (') are optional"
 msgstr "Indhyllende apostroffer (') er valgfrie"
 
-#: MainWindow.xaml:66
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:80
 msgid "Enclosing single-quotes (apostrophes) are optional."
 msgstr "Inhyllende apostroffer er valgfrie."
 
-#: MainWindow.xaml:34
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:43
 msgid "English"
 msgstr "Engelsk"
 
-#: MainWindow.xaml:69
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:83
 msgctxt "Example"
 msgid "GNOME glib syntax context example"
 msgstr "GNOME glib syntaks-context-eksempel"
 
-#: MainWindow.xaml:36
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:45
 msgid "German"
 msgstr "Tysk"
 
-#: MainWindow.xaml:46
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:57
 msgid "Localized date time format example:"
 msgstr "Lokalformateret dato og klokkeslæt-eksempel:"
 
-#: MainWindow.xaml:51
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:63
 msgid "Localized enum combo example:"
 msgstr "Lokalformateret enum-combobox-eksempel:"
 
-#: MainWindow.xaml:41
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:51
 msgid "Localized number format example:"
 msgstr "Lokalformateret tal-eksempel:"
 
-#: MainWindow.xaml:76
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:90
 msgid "Memory leak test progress:"
 msgstr "Memory-leak-testfremgang:"
 
-#: C:\Git\ngettext-avalonia\NGettext.Avalonia.Example\MainWindow.xaml.cs:97
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindowModel.cs:95
 msgid "NGettext.Avalonia Example"
 msgstr "NGettext.Avalonia-eksempel"
 
-#: MainWindow.xaml:73
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:87
 msgid "Run TrackCurrentCultureBehavior memory leak test"
 msgstr "Udfør TrackCurrentCultureBehavior memory-leak-test"
 
-#: C:\Git\ngettext-avalonia\NGettext.Avalonia.Example\MainWindow.xaml.cs:99
-#: C:\Git\ngettext-avalonia\NGettext.Avalonia.Example\MainWindow.xaml.cs:100
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindowModel.cs:97
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindowModel.cs:98
 msgid "Singular"
 msgid_plural "Plural"
 msgstr[0] "Ental"
 msgstr[1] "Flertal"
 
-#: C:\Git\ngettext-avalonia\NGettext.Avalonia.Example\MainWindow.xaml.cs:102
-#: C:\Git\ngettext-avalonia\NGettext.Avalonia.Example\MainWindow.xaml.cs:103
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindowModel.cs:100
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindowModel.cs:101
 #, csharp-format
 msgid "Singular {0:n3}"
 msgid_plural "Plural {0:n3}"
 msgstr[0] "Ental {0:n3}"
 msgstr[1] "Flertal {0:n3}"
 
-#: C:\Git\ngettext-avalonia\NGettext.Avalonia.Example\ExampleEnum.cs:16
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\ExampleEnum.cs:16
 msgctxt "EnumMsgId example"
 msgid "Some fourth value"
 msgstr "En fjerde værdi"
 
-#: C:\Git\ngettext-avalonia\NGettext.Avalonia.Example\ExampleEnum.cs:10
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\ExampleEnum.cs:10
 msgid "Some other value"
 msgstr "En anden værdi"
 
-#: C:\Git\ngettext-avalonia\NGettext.Avalonia.Example\ExampleEnum.cs:13
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\ExampleEnum.cs:13
 msgid "Some third value"
 msgstr "En tredje værdi"
 
-#: C:\Git\ngettext-avalonia\NGettext.Avalonia.Example\ExampleEnum.cs:7
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\ExampleEnum.cs:7
 msgid "Some value"
 msgstr "En værdi"
 
-#: MainWindow.xaml:70
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:84
 msgid "Text with punctuation: 1, 2, 3"
 msgstr "Tekst med tegnsætning: 1, 2, 3"
 
-#: MainWindow.xaml:67
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:81
 msgid "Unenclosed escaped single-quotes (') are supported."
 msgstr "Ikke-inhyllende, escapede apostroffer (') er understøttet."
 
-#: MainWindow.xaml:68
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:82
 msgid "Unicode™ in msgIds is supported"
 msgstr "Unicode™ i msgId'er er understøttet"
 
-#: MainWindow.xaml:61
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:75
 msgid "Varying cAsE ExamPle:"
 msgstr "Eksempel På VaRiAtiOn i store og små bogstavEr:"
 
-#: MainWindow.xaml:60
+#: C:\work\github\ava\ngettext-avalonia\src\NGettext.Avalonia.Example\MainWindow.axaml:74
 msgid "Varying case example:"
 msgstr "Eksempel på variation i store og små bogstaver:"
 

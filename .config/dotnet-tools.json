@@ -2,10 +2,10 @@
   "version": 1,
   "isRoot": true,
   "tools": {
-    "fake-cli": {
-      "version": "5.23.1",
+    "cake.tool": {
+      "version": "3.0.0",
       "commands": [
-        "fake"
+        "dotnet-cake"
       ]
     }
   }
