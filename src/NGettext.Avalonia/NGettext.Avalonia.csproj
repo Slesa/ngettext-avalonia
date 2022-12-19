@@ -6,6 +6,7 @@
 <!--        <Nullable>enable</Nullable>-->
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <NuspecFile>NGettext.Avalonia.nuspec</NuspecFile>
+        <PackageIcon>icon.png</PackageIcon>
     </PropertyGroup>
 
     <ItemGroup>

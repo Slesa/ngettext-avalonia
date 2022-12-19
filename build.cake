@@ -94,7 +94,7 @@ public void EnsureVersions()
 
   var version = string.Format("{0}.{1}", releaseNotes.Version.Major, releaseNotes.Version.Minor); //, releaseNotes.Version.Revision);
   _currentVersion = $"{version}.{BuildNumber}";
-  _yamlVersion = $"{version}.{BuildNumber}" + ".{build}";
+  _yamlVersion = version + ".{build}";
   Information("Current version is " + _currentVersion);
 
   if( IsLocalBuild )
