@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>NGettext.Avalonia</id>
+    <version>0.3.0-beta</version>
+    <title>Avalonia support for NGettext</title>
+    <authors>Robert Jørgensgaard Engdahl</authors>
+    <owners>Robert Jørgensgaard Engdahl; J. Preiss</owners>
+    <license type="expression">LGPL-3.0-or-later</license>
+    <IconUrl>https://raw.githubusercontent.com/Slesa/ngettext-avalonia/develop/icon.png</IconUrl>
+    <projectUrl>https://github.com/slesa/ngettext-avalonia</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Proper internationalization support for Avalonia (via NGettext).  In particular a GetTextMarkupExtension is included, which is what everyone uses anyway.</description>
+    <copyright>Copyright 2017-2022 Accuratech ApS</copyright>
+    <tags>gettext avalonia ngettext gettextmarkupextension xgettext-xaml</tags>
+    <dependencies>
+      <dependency id="NGettext" version="0.6.7" />
+      <dependency id="Avalonia" version="0.10.18" />
+      <dependency id="Avalonia.Markup.Xaml.Loader" version="0.10.18" exclude="Build,Analyzers" />
+      <dependency id="Avalonia.Xaml.Behaviors" version="0.10.18" exclude="Build,Analyzers" />
+    </dependencies>
+  </metadata>
+  <files>
+     <file src="bin/Release/net6.0/NGettext.Avalonia.dll" target="lib/net6.0" />
+    <file src="../../XGetText.Xaml/XGetText-Xaml.ps1" target="tools" />
+    <file src="../../XGetText.Xaml/Init.ps1" target="tools" />
+  </files>
+</package>
