@@ -226,6 +226,9 @@ Task("GenerateVersionInfo")
 		{
 			AdjustVersionInformation(fn.FullPath);
 		}
+    var yaml = FileReadText("appveyor.yml").Split("\n"); 
+    yaml[0] = $"version: {CurrentVersion}";
+    FileWriteText("appveyor.yml", string.Join("\n", yaml));
 	}).OnError(exception =>
 	{
 		Information( exception.ToString());

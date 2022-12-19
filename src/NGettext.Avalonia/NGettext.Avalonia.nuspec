@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>NGettext.Avalonia</id>
-    <version>0.2.0</version>
+    <version>0.3.0-beta</version>
     <title>Avalonia support for NGettext</title>
     <authors>Robert Jørgensgaard Engdahl</authors>
     <owners>Robert Jørgensgaard Engdahl; J. Preiss</owners>

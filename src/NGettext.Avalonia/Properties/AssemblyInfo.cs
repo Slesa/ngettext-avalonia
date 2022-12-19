@@ -8,9 +8,9 @@ using System.Reflection;
 [assembly: AssemblyTitle("NGettext.Avalonia")]
 [assembly: AssemblyDescription("Avalonia support for NGettext")]
 [assembly: AssemblyProduct("NGettext.Avalonia")]
-[assembly: AssemblyVersion("0.2.0")]
-[assembly: AssemblyFileVersion("0.2.0")]
-[assembly: AssemblyInformationalVersion("0.2.0")]
+[assembly: AssemblyVersion("0.3.0")]
+[assembly: AssemblyFileVersion("0.3.0")]
+[assembly: AssemblyInformationalVersion("0.3.0")]
 [assembly: AssemblyCopyright("Copyright 2017, 2018, 2019 Accuratech ApS")]
 [assembly: AssemblyConfiguration("Release")]
 
