@@ -66,7 +66,27 @@ public bool IsMainBranch { get { return BranchName.ToLower()=="main"; } }
 //////////////////////////////////////////////////////////////////////
 
 string _currentVersion;
+public string CurrentVersion
+{
+  get {
+    EnsureVersions();
+    return _currentVersion;
+  }
+}
 string _nugetVersion;
+public string NugetVersion { 
+  get {
+    EnsureVersions();
+    return _nugetVersion;
+  }
+}
+string _yamlVersion;
+public string YamlVersion { 
+  get {
+    EnsureVersions();
+    return _yamlVersion;
+  }
+}
 
 public void EnsureVersions()
 {
@@ -74,6 +94,7 @@ public void EnsureVersions()
 
   var version = string.Format("{0}.{1}", releaseNotes.Version.Major, releaseNotes.Version.Minor); //, releaseNotes.Version.Revision);
   _currentVersion = $"{version}.{BuildNumber}";
+  _yamlVersion = $"{version}.{BuildNumber}" + ".{build}";
   Information("Current version is " + _currentVersion);
 
   if( IsLocalBuild )
@@ -86,21 +107,6 @@ public void EnsureVersions()
   else
     _nugetVersion = _currentVersion + "-rc";
   Information("Nuget version is " + _nugetVersion);
-}
-
-public string CurrentVersion
-{
-  get {
-    EnsureVersions();
-    return _currentVersion;
-  }
-}
-
-public string NugetVersion { 
-  get {
-    EnsureVersions();
-    return _nugetVersion;
-  }
 }
 
 
@@ -222,7 +228,7 @@ Task("GenerateVersionInfo")
 			AdjustVersionInformation(fn.FullPath);
 		}
     var yaml = FileReadText("appveyor.yml").Split("\n"); 
-    var versionLine = $"version: {CurrentVersion}";
+    var versionLine = $"version: {YamlVersion}";
     Information($"Setting yaml version to: {versionLine}");
     yaml[0] = versionLine;
     FileWriteText("appveyor.yml", string.Join("\n", yaml));
