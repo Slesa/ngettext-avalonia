@@ -5,7 +5,7 @@ namespace NGettext.Avalonia.Tests
 {
     public class TranslationTest
     {
-        private readonly ILocalizer _localizer = Substitute.For<ILocalizer>();
+        readonly ILocalizer _localizer = Substitute.For<ILocalizer>();
 
         public TranslationTest()
         {

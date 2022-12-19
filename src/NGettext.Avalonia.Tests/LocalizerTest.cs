@@ -6,10 +6,10 @@ namespace NGettext.Avalonia.Tests
 {
     public class LocalizerTest
     {
-        private readonly ICultureTracker _cultureTracker = Substitute.For<ICultureTracker>();
-        private readonly Localizer _target;
-        private readonly CultureInfo _initialCulture = new CultureInfo("da-DK");
-        private readonly CultureInfo _changedCulture = new CultureInfo("en-US");
+        readonly ICultureTracker _cultureTracker = Substitute.For<ICultureTracker>();
+        readonly Localizer _target;
+        readonly CultureInfo _initialCulture = new CultureInfo("da-DK");
+        readonly CultureInfo _changedCulture = new CultureInfo("en-US");
 
         public LocalizerTest()
         {
@@ -20,7 +20,7 @@ namespace NGettext.Avalonia.Tests
         [Fact]
         public void Depends_On_CultureTracker()
         {
-            Assert.DependsOn("cultureTracker", () => new Localizer(null, "some domain"));
+            AssertExt.DependsOn("cultureTracker", () => new Localizer(null, "some domain"));
         }
 
         [Fact]

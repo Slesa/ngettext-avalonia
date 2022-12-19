@@ -6,7 +6,7 @@ namespace NGettext.Avalonia.Tests
 {
     public class CultureTrackerTest
     {
-        private readonly CultureTracker _target;
+        readonly CultureTracker _target;
 
         public CultureTrackerTest()
         {

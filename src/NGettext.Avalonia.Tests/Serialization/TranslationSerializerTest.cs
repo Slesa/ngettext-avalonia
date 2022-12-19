@@ -8,9 +8,9 @@ namespace NGettext.Avalonia.Tests.Serialization
 {
     public class TranslationSerializerTest
     {
-        private readonly TranslationSerializer _target;
-        private readonly ICatalog _enCatalog = Substitute.For<ICatalog>();
-        private readonly ICatalog _daCatalog = Substitute.For<ICatalog>();
+        readonly TranslationSerializer _target;
+        readonly ICatalog _enCatalog = Substitute.For<ICatalog>();
+        readonly ICatalog _daCatalog = Substitute.For<ICatalog>();
 
         public TranslationSerializerTest()
         {
@@ -29,7 +29,7 @@ namespace NGettext.Avalonia.Tests.Serialization
             _daCatalog.GetString("Other English message {0}", 42).Returns("Anden dansk besked 42");
         }
 
-        private ICatalog CreateCatalog(CultureInfo cultureInfo)
+        ICatalog CreateCatalog(CultureInfo cultureInfo)
         {
             switch (cultureInfo.Name)
             {

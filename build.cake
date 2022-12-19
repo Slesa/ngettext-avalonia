@@ -64,7 +64,7 @@ public void EnsureVersions()
 
   if( IsLocalBuild )
   {
-    _nugetVersion = version + "-beta";
+    _nugetVersion = _currentVersion + "-beta";
     return;
   }
   if( IsMainBranch )
@@ -311,7 +311,7 @@ Task("NugetPack")
 	.Does(() =>
 	{
     var nuspecFile = srcDir.CombineWithFilePath("NGettext.Avalonia/NGettext.Avalonia.nuspec").FullPath;
-    XmlPoke(nuspecFile, "/package/metadata/version", CurrentVersion);
+    XmlPoke(nuspecFile, "/package/metadata/version", NugetVersion);
     var settings = new DotNetPackSettings {
       NoRestore = true,
       //NoBuild = true,
@@ -354,7 +354,7 @@ Task("NugetPack")
 
 Task("NugetPush")
 	.WithCriteria(!IsLocalBuild)
-  .WithCriteria(IsMainBranch)
+  .WithCriteria(IsMainBranch || IsDevelop)
 	.Does(() =>
 	{
     var apikey = EnvironmentVariable("NUGET_APIKEY");

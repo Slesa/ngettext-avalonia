@@ -7,7 +7,7 @@ namespace NGettext.Avalonia.Tests
 {
     public class GettextFormatConverterExtensionTest
     {
-        private readonly MarkupExtension _target;
+        readonly MarkupExtension _target;
 
         public GettextFormatConverterExtensionTest()
         {

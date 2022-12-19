@@ -7,8 +7,8 @@ namespace NGettext.Avalonia.Tests.EnumTranslation
 {
     public class LocalizeEnumConverterTest
     {
-        private readonly IEnumLocalizer _enumLocalizer = Substitute.For<IEnumLocalizer>();
-        private readonly IValueConverter _target;
+        readonly IEnumLocalizer _enumLocalizer = Substitute.For<IEnumLocalizer>();
+        readonly IValueConverter _target;
 
         public LocalizeEnumConverterTest()
         {

@@ -5,7 +5,7 @@ namespace NGettext.Avalonia.Tests
 {
     public class CultureEventArgsTest
     {
-        private readonly CultureEventArgs _target;
+        readonly CultureEventArgs _target;
 
         public CultureEventArgsTest()
         {
@@ -15,7 +15,7 @@ namespace NGettext.Avalonia.Tests
         [Fact]
         public void Depends_On_CultureInfo()
         {
-            Assert.DependsOn("cultureInfo", () => new CultureEventArgs(null));
+            AssertExt.DependsOn("cultureInfo", () => new CultureEventArgs(null));
         }
 
         [Fact]
