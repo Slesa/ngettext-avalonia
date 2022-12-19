@@ -15,10 +15,31 @@ var configuration = Argument("config", "Release");
 
 
 //////////////////////////////////////////////////////////////////////
+// PROPERTIES
+//////////////////////////////////////////////////////////////////////
+
+public bool IsLocalBuild
+{
+  get { return EnvironmentVariable("APPVEYOR_BUILD_NUMBER")==null; }
+}
+
+public string BranchName 
+{ 
+  get { return EnvironmentVariable<string>("APPVEYOR_REPO_BRANCH", ""); } 
+}
+
+public int BuildNumber
+{ 
+  get { return EnvironmentVariable<int>("APPVEYOR_BUILD_NUMBER", 0); } 
+}
+
+
+
+//////////////////////////////////////////////////////////////////////
 // PREPARATION
 //////////////////////////////////////////////////////////////////////
 
-var workingPathName = EnvironmentVariable("BUILD_REPOSITORY_LOCALPATH") ?? ".";
+var workingPathName = ".";
 var workingDir = MakeAbsolute(new DirectoryPath( workingPathName ));
 var releaseNotes = ParseReleaseNotes( workingDir.CombineWithFilePath("ReleaseNotes.md") );
 var xgettextDir = new DirectoryPath( workingDir.CombineWithFilePath("XGetText.Xaml" ).FullPath );
@@ -35,12 +56,6 @@ var projects
 var testProjects 
 	= GetFiles( srcDir.CombineWithFilePath("**/*.Tests.csproj").FullPath );
 
-
-//////////////////////////////////////////////////////////////////////
-// PROPERTIES
-//////////////////////////////////////////////////////////////////////
-public bool IsLocalBuild { get { return !BuildSystem.AppVeyor.IsRunningOnAppVeyor; } }
-public string BranchName { get { return EnvironmentVariable("APPVEYOR_REPO_BRANCH") ?? ""; } }
 public bool IsDevelop { get { return BranchName.ToLower()=="develop"; } }
 public bool IsMainBranch { get { return BranchName.ToLower()=="main"; } }
 
@@ -58,8 +73,7 @@ public void EnsureVersions()
   if( !string.IsNullOrEmpty(_currentVersion) && !string.IsNullOrEmpty(_nugetVersion)) return;
 
   var version = string.Format("{0}.{1}", releaseNotes.Version.Major, releaseNotes.Version.Minor); //, releaseNotes.Version.Revision);
-  var build = IsLocalBuild ? 0 : BuildSystem.AppVeyor.Environment.Build.Number;
-  _currentVersion = $"{version}.{build}";
+  _currentVersion = $"{version}.{BuildNumber}";
   Information("Current version is " + _currentVersion);
 
   if( IsLocalBuild )
@@ -198,27 +212,8 @@ public void PublishNugetPackage(string fileName)
 // TASKS
 //////////////////////////////////////////////////////////////////////
 
-TaskSetup(setupContext =>
-{
-   if(BuildSystem.AppVeyor.IsRunningOnAppVeyor)
-   {
-    BuildSystem.AppVeyor.AddMessage(setupContext.Task.Description ?? setupContext.Task.Name, AppVeyorMessageCategoryType.Information, "Task Status." );
-   }
-});
-
-
-TaskTeardown(teardownContext =>
-{
-   if(BuildSystem.AppVeyor.IsRunningOnAppVeyor)
-   {
-     BuildSystem.AppVeyor.AddMessage(teardownContext.Task.Description ?? teardownContext.Task.Name, AppVeyorMessageCategoryType.Information, "Task Status." );
-   }
-});
-
-
-
 Task("GenerateVersionInfo")
-	//.WithCriteria(!IsLocalBuild)
+	.WithCriteria(!IsLocalBuild)
 	.Does(() =>
 	{
 		var versions = GetFiles( srcDir.CombineWithFilePath( "**/AssemblyInfo.cs" ).FullPath );
@@ -227,7 +222,9 @@ Task("GenerateVersionInfo")
 			AdjustVersionInformation(fn.FullPath);
 		}
     var yaml = FileReadText("appveyor.yml").Split("\n"); 
-    yaml[0] = $"version: {CurrentVersion}";
+    var versionLine = $"version: {CurrentVersion}";
+    Information($"Setting yaml version to: {versionLine}");
+    yaml[0] = versionLine;
     FileWriteText("appveyor.yml", string.Join("\n", yaml));
 	}).OnError(exception =>
 	{
